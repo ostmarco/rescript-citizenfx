@@ -1,0 +1,14 @@
+{
+  "name": "rescript-citizenfx",
+  "version": "1.0.0",
+  "repository": "git@github.com:823cccc/rescript-citizenfx.git",
+  "license": "MIT",
+  "scripts": {
+    "build": "rescript",
+    "clean": "rescript clean -with-deps",
+    "start": "rescript build -w"
+  },
+  "dependencies": {
+    "rescript": "*"
+  }
+}
