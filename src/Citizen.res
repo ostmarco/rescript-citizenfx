@@ -1,24 +1,31 @@
-type callback<'a> = array<'a> => unit
+let trace = message => Internal.trace(message)
 
-@val @variadic external trace: array<string> => unit = "Citizen.trace"
+let getTickCount = Internal.getTickCount
 
-@val @variadic
-external invokeNative: (string, array<'a>) => 'b = "Citizen.invokeNative"
+let invokeNative: (string, array<InputArgument.t>) => 'a = (hash, arguments) => {
+  Internal.invokeNative(hash, Belt.Array.map(arguments, InputArgument.unwrap))
+}
 
-@val external on: (string, callback<'a>) => unit = "on"
+let on = Internal.on
 
-@val external onNet: (string, callback<'a>) => unit = "onNet"
+let onNet = Internal.onNet
 
-@val @variadic external emit: (string, array<'a>) => unit = "emit"
+let emit: (string, array<InputArgument.t>) => unit = (eventName, args) => {
+  Internal.emit(eventName, Belt.Array.map(args, InputArgument.unwrap))
+}
 
-@val @variadic external emitNet: (string, array<'a>) => unit = "emitNet"
+let emitNet: (string, array<InputArgument.t>) => unit = (eventName, args) => {
+  Internal.emitNet(eventName, Belt.Array.map(args, InputArgument.unwrap))
+}
 
-@val external setTick: callback<'a> => int = "setTick"
+let removeEventListener = Internal.removeEventListener
 
-@val external clearTick: int => unit = "clearTick"
+let getPlayerIdentifiers = Internal.getPlayerIdentifiers
 
-@val external getPlayerIdentifiers: int => array<string> = "getPlayerIdentifiers"
+let getPlayers = Internal.getPlayers
 
-@val external getPlayers: unit => array<int> = "getPlayers"
+let setTick = Internal.setTick
 
-@val external source: string = "global.source"
+let clearTick = Internal.clearTick
+
+let source = Internal.source
