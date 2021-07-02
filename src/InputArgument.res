@@ -1,27 +1,30 @@
 external identity: 'a => 'b = "%identity"
 
 type rec t = [
-  | #Null
+  | #Undefined
   | #Int(int)
+  | #Bool(bool)
   | #Float(float)
   | #String(string)
-  | #Variant(option<t>)
+  | #Array(array<t>)
+  | #Object(array<(string, t)>)
 ]
 
-let unwrap = inputArgument =>
+let rec unwrap: t => 'a = inputArgument =>
   switch inputArgument {
-  | #Null => identity(None)
-
+  | #Undefined => identity(None)
   | #Int(value) => identity(value)
-
+  | #Bool(value) => identity(value)
   | #Float(value) => identity(value)
-
   | #String(value) => identity(value)
+  | #Array(value) => identity(Belt.Array.map(value, unwrap))
+  | #Object(value) => {
+      let object: Js.Dict.t<'a> = Js.Dict.empty()
 
-  | #Variant(value) =>
-    switch value {
-    | None => identity(None)
+      Belt.Array.forEach(value, ((key, value)) => {
+        Js.Dict.set(object, key, unwrap(value))
+      })
 
-    | Some(value) => identity(value)
+      identity(object)
     }
   }

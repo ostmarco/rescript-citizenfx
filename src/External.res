@@ -26,3 +26,7 @@ external getPlayerIdentifiers: @unwrap [#Int(int) | #String(string)] => array<st
 @val external clearTick: int => unit = "clearTick"
 
 @val external source: string = "global.source"
+
+@val
+external registerCommand: (string, (int, array<string>, string) => unit, bool) => unit =
+  "RegisterCommand"

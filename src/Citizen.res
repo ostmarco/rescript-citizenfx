@@ -1,31 +1,33 @@
-let trace = message => Internal.trace(message)
+let trace = message => External.trace(message)
 
-let getTickCount = Internal.getTickCount
+let getTickCount = External.getTickCount
 
-let invokeNative: (string, array<InputArgument.t>) => 'a = (hash, arguments) => {
-  Internal.invokeNative(hash, Belt.Array.map(arguments, InputArgument.unwrap))
+let invokeNative: (int, InputArgument.t) => 'a = (hash, arguments) => {
+  External.invokeNative(string_of_int(hash), InputArgument.unwrap(arguments))
 }
 
-let on = Internal.on
+let on = External.on
 
-let onNet = Internal.onNet
+let onNet = External.onNet
 
-let emit: (string, array<InputArgument.t>) => unit = (eventName, args) => {
-  Internal.emit(eventName, Belt.Array.map(args, InputArgument.unwrap))
+let emit: (string, InputArgument.t) => unit = (eventName, arguments) => {
+  External.emit(eventName, InputArgument.unwrap(arguments))
 }
 
-let emitNet: (string, array<InputArgument.t>) => unit = (eventName, args) => {
-  Internal.emitNet(eventName, Belt.Array.map(args, InputArgument.unwrap))
+let emitNet: (string, InputArgument.t) => unit = (eventName, arguments) => {
+  External.emitNet(eventName, InputArgument.unwrap(arguments))
 }
 
-let removeEventListener = Internal.removeEventListener
+let removeEventListener = External.removeEventListener
 
-let getPlayerIdentifiers = Internal.getPlayerIdentifiers
+let getPlayerIdentifiers = External.getPlayerIdentifiers
 
-let getPlayers = Internal.getPlayers
+let getPlayers = External.getPlayers
 
-let setTick = Internal.setTick
+let setTick = External.setTick
 
-let clearTick = Internal.clearTick
+let clearTick = External.clearTick
 
-let source = Internal.source
+let source = External.source
+
+let registerCommand = External.registerCommand
