@@ -1,33 +1,33 @@
-let trace = message => External.trace(message)
+let trace = message => Native.trace(message)
 
-let getTickCount = External.getTickCount
+let getTickCount = Native.getTickCount
 
 let invokeNative: (int, InputArgument.t) => 'a = (hash, arguments) => {
-  External.invokeNative(string_of_int(hash), InputArgument.unwrap(arguments))
+  Native.invokeNative(string_of_int(hash), InputArgument.unwrap(arguments))
 }
 
-let on = External.on
+let on = Native.on
 
-let onNet = External.onNet
+let onNet = Native.onNet
 
 let emit: (string, InputArgument.t) => unit = (eventName, arguments) => {
-  External.emit(eventName, InputArgument.unwrap(arguments))
+  Native.emit(eventName, InputArgument.unwrap(arguments))
 }
 
 let emitNet: (string, InputArgument.t) => unit = (eventName, arguments) => {
-  External.emitNet(eventName, InputArgument.unwrap(arguments))
+  Native.emitNet(eventName, InputArgument.unwrap(arguments))
 }
 
-let removeEventListener = External.removeEventListener
+let removeEventListener = Native.removeEventListener
 
-let getPlayerIdentifiers = External.getPlayerIdentifiers
+let getPlayerIdentifiers = Native.getPlayerIdentifiers
 
-let getPlayers = External.getPlayers
+let getPlayers = Native.getPlayers
 
-let setTick = External.setTick
+let setTick = Native.setTick
 
-let clearTick = External.clearTick
+let clearTick = Native.clearTick
 
-let source = External.source
+let source = Native.source
 
-let registerCommand = External.registerCommand
+let registerCommand = Native.registerCommand
