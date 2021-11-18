@@ -8,7 +8,7 @@ Citizen.registerCommand(
         let playerName: string = Citizen.invokeNative(Server.Cfx.getPlayerName, source)
         let latency: int = Citizen.invokeNative(Server.Cfx.getPlayerPing, source)
 
-        let payload = #Object([
+        let payload = #Dictionary([
           (
             "args",
             #Array([

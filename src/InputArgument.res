@@ -7,7 +7,7 @@ type rec t = [
   | #Float(float)
   | #String(string)
   | #Array(array<t>)
-  | #Object(array<(string, t)>)
+  | #Dictionary(array<(string, t)>)
 ]
 
 let rec unwrap: t => 'a = inputArgument =>
@@ -18,13 +18,13 @@ let rec unwrap: t => 'a = inputArgument =>
   | #Float(value) => identity(value)
   | #String(value) => identity(value)
   | #Array(value) => identity(Belt.Array.map(value, unwrap))
-  | #Object(value) => {
-      let object: Js.Dict.t<'a> = Js.Dict.empty()
+  | #Dictionary(value) => {
+      let dictionary: Js.Dict.t<'a> = Js.Dict.empty()
 
       Belt.Array.forEach(value, ((key, value)) => {
-        Js.Dict.set(object, key, unwrap(value))
+        Js.Dict.set(dictionary, key, unwrap(value))
       })
 
-      identity(object)
+      identity(dictionary)
     }
   }
